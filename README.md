@@ -23,6 +23,7 @@ An extensional feature of YouTube existing functionality for education services.
    * Search
       * search
       * YouTube API
+   * Tag
    * TBD...
 
 ## 4. Database Implementation

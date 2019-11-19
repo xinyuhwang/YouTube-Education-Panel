@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import youtube.model.NotePad;
 
 @Entity
@@ -23,8 +25,12 @@ public class Video implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	@JsonProperty("Video ID")
+	private String id;
+	
+	@JsonProperty("Video Link")
 	private String url;
+	
 	private String title;
 	
 	// the owning side; owns foreign key to he videolist
@@ -40,8 +46,12 @@ public class Video implements Serializable {
 	@JoinColumn(name = "taglistId")
 	private TagList tagList;
 	
-	public int getId() {
+	public String getId() {
 		return id;
+	}
+	
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 	public String getUrl() {
