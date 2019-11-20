@@ -51,7 +51,7 @@ public class YouTubeClient {
      */
     private static final String PROPERTIES_FILENAME = "youtube.properties";
 
-    private static final long NUMBER_OF_VIDEOS_RETURNED = 25;
+    private static final long NUMBER_OF_VIDEOS_RETURNED = 2;
 
     /**
      * Define a global instance of a Youtube object, which will be used
@@ -162,12 +162,19 @@ public class YouTubeClient {
             // Confirm that the result represents a video. Otherwise, the
             // item will not contain a video ID.
             if (rId.getKind().equals("youtube#video")) {
+            	
+            	Thumbnail thumbnail = singleVideo.getSnippet().getThumbnails().getDefault();
+            	
             	Video v = new Video();
             	String id = rId.getVideoId();
             	
             	v.setId(id);
             	
             	v.setUrl(host + id);
+            	
+            	v.setTitle(singleVideo.getSnippet().getTitle());
+            	
+            	v.setThumbnail(thumbnail.getUrl());
             	
             	videoList.add(v);
             }

@@ -25,13 +25,14 @@ public class Video implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@JsonProperty("Video ID")
+	//@JsonProperty("Video ID")
 	private String id;
 	
-	@JsonProperty("Video Link")
 	private String url;
 	
 	private String title;
+	
+	private String thumbnail;
 	
 	// the owning side; owns foreign key to he videolist
 	@ManyToOne
@@ -76,5 +77,13 @@ public class Video implements Serializable {
 
 	public void setVideoList(VideoList videoList) {
 		this.videoList = videoList;
+	}
+
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
 	}
 }
