@@ -14,6 +14,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import youtube.model.Tag;
+import youtube.model.Video;
 
 @Entity
 @Table(name="taglist")
@@ -35,12 +36,20 @@ public class TagList implements Serializable{
 	public int getId() {
 		return id;
 	}
-
+	
+	public void setTagList(List<Tag> tagList) {
+		this.tagList = tagList;
+	}
+	
 	public List<Tag> getTagList() {
 		return tagList;
 	}
 	
-	public void setVideoList(List<Tag> tagList) {
-		this.tagList = tagList;
+	public Video getVideo() {
+		return video;
+	}
+
+	public void setVideo(Video video) {
+		this.video = video;
 	}
 }

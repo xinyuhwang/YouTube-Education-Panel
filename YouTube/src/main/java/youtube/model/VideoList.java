@@ -10,9 +10,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import youtube.model.Video;
+import youtube.model.User;
 
 @Entity
 @Table(name="videolist")
@@ -24,6 +28,10 @@ public class VideoList implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
+	@OneToOne(mappedBy = "videoList")
+	@JsonIgnore
+	private User user;
+	
 	// referencing side; The inverse side maps to the owning side
 	@OneToMany(mappedBy = "videoList", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	private List<Video> videoList;
@@ -33,6 +41,14 @@ public class VideoList implements Serializable {
 		return id;
 	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
 	public List<Video> getVideoList() {
 		return videoList;
 	}
