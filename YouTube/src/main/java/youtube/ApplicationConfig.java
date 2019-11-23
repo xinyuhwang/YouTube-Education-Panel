@@ -26,7 +26,7 @@ public class ApplicationConfig {
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/youtube?serverTimezone=UTC");
+		dataSource.setUrl("jdbc:mysql://localhost:3307/youtube?serverTimezone=UTC");
 		dataSource.setUsername("root");
 		dataSource.setPassword("root");
 

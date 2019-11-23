@@ -41,4 +41,11 @@ public class Tag implements Serializable {
 		this.name = name;
 	}
 	
+	public TagList getTagList() {
+		return tagList;
+	}
+
+	public void setTagList(TagList tagList) {
+		this.tagList = tagList;
+	}
 }
