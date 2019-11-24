@@ -21,9 +21,8 @@ public class Video implements Serializable {
 
 	private static final long serialVersionUID = 6245772803345049074L;
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	//@JsonProperty("Video ID")
+	@Id
 	private String id;
 	
 	private String url;

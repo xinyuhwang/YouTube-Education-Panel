@@ -19,6 +19,8 @@ import youtube.service.VideoService;
 @Controller
 public class YouTubeManagerController {
 	
+	@Autowired
+	private VideoService videoService;
 	@ResponseBody
 	@RequestMapping(value = "/search/{query}", method = RequestMethod.GET)   
 	// path variable with {username} in the url @PathVariable("username") String name
@@ -34,9 +36,9 @@ public class YouTubeManagerController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/favorite", method = RequestMethod.POST)
-	public ResponseEntity<Boolean> favorite(@RequestParam("video") Video v) {
+	public ResponseEntity<Boolean> favorite(@RequestParam("video") Video video) {
 		// add video to db
-		//videoService.addVideo(v);
+		videoService.addVideo(video);
 		return new ResponseEntity<Boolean>(true, HttpStatus.OK); 
 	}
 }
