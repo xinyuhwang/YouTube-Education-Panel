@@ -1,9 +1,10 @@
 package youtube.controller;
 
-import java.util.*;
+import java.util.ArrayList;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,20 +15,22 @@ import youtube.external.YouTubeClient;
 import youtube.model.Video;
 
 @Controller
-public class YouTubeSearchController {
+public class HomePageController {
+	
 	
 	@ResponseBody
-	@RequestMapping(value = "/search/{query}", method = RequestMethod.GET)   
+	@RequestMapping(value = "/login", method = RequestMethod.GET)   
 	// path variable with {username} in the url @PathVariable("username") String name
 	// @PathVariabl Map<String, String> pathVars key- "username" value - input in url
 	
-	public ArrayList<Video> getVideoList(@PathVariable("query") String term) {
+	public ResponseEntity<Boolean> login(@RequestParam("name") String name, @RequestParam("pwd") String pwd) {
 
-		
-		ArrayList<Video> videoList = YouTubeClient.getVideoList(term);
-		
-		
-		return videoList;
+		// check if the user if our user and password is correct
+		if (name.equals("1111") && pwd.equals("2222")) {
+			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
+		}		
 		
 	}
 }
