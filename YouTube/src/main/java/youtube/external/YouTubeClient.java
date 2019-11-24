@@ -152,7 +152,8 @@ public class YouTubeClient {
             System.out.println(" There aren't any results for your query.");
         }
         
-        String host = "https://www.youtube.com/watch?v=";
+        //String host = "https://www.youtube.com/watch?v=";
+        String host = "https://www.youtube.com/embed/";
         
         while (iteratorSearchResults.hasNext()) {
 
