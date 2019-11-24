@@ -19,7 +19,7 @@ public class VideoServiceImpl implements VideoService{
 		videoDao.addVideo(video);
 	}
 	
-	public void removeVideo(int videoId) {
+	public void removeVideo(String videoId) {
 		videoDao.removeVideo(videoId);
 	}
 }

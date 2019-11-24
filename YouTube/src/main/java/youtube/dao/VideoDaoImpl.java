@@ -31,7 +31,7 @@ public class VideoDaoImpl implements VideoDao{
 		}
 	}
 	
-	public void removeVideo(int videoId) {
+	public void removeVideo(String videoId) {
 		Session session = null;
 		try {
 			session = sessionFactory.openSession();
