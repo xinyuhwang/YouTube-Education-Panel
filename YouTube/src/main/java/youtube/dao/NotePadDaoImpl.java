@@ -1,12 +1,5 @@
 package youtube.dao;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +12,12 @@ public class NotePadDaoImpl implements NotePadDao{
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	public void addNotePad(NotePad notepad) {
+	public void addNotePad(NotePad notePad) {
 		Session session = null;
 		try {
 			session = sessionFactory.openSession();
 			session.beginTransaction();
-			session.save(notepad);
+			session.save(notePad);
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -36,12 +29,12 @@ public class NotePadDaoImpl implements NotePadDao{
 		}
 	}
 	
-	public void deleteNotePad(int NotePadId) {
+	public void deleteNotePad(int notePadId) {
 		Session session = null;
 		try {
 			session = sessionFactory.openSession();
 			session.beginTransaction();
-			NotePad notepad = (NotePad) session.get(NotePad.class, NotePadId);
+			NotePad notepad = (NotePad) session.get(NotePad.class, notePadId);
 			session.delete(notepad);
 			session.getTransaction().commit();
 		} catch (Exception e) {
@@ -55,12 +48,12 @@ public class NotePadDaoImpl implements NotePadDao{
 
 	}
 	
-	public void updateNotePad(NotePad notepad) {
+	public void updateNotePad(NotePad notePad) {
 		Session session = null;
 		try {
 			session = sessionFactory.openSession();
 			session.beginTransaction();
-			session.saveOrUpdate(notepad);
+			session.saveOrUpdate(notePad);
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -73,10 +66,10 @@ public class NotePadDaoImpl implements NotePadDao{
 
 	}
 	
-	public NotePad getNotePadById(int NotePadId) {
+	public NotePad getNotePadById(int notePadId) {
 		try (Session session = sessionFactory.openSession()) {
 			session.beginTransaction();
-			NotePad product = (NotePad) session.get(NotePad.class, NotePadId);
+			NotePad product = (NotePad) session.get(NotePad.class, notePadId);
 			session.getTransaction().commit();
 			return product;
 		} catch (Exception e) {

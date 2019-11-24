@@ -1,7 +1,5 @@
 package youtube.dao;
 
-import java.io.IOException;
-import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +12,11 @@ public class TagListDaoImpl implements TagListDao{
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	public TagList getTagListById(int TagListId) {
+	public TagList getTagListById(int tagListId) {
 		TagList taglist = null;
 		try (Session session = sessionFactory.openSession()) {
 			session.beginTransaction();
-			taglist = (TagList) session.get(TagList.class, TagListId);
+			taglist = (TagList) session.get(TagList.class, tagListId);
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			e.printStackTrace();

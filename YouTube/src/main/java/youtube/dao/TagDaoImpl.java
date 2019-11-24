@@ -31,11 +31,11 @@ public class TagDaoImpl implements TagDao{
 		}
 	}
 	
-	public void removeTag(int TagId) {
+	public void removeTag(int tagId) {
 		Session session = null;
 		try {
 			session = sessionFactory.openSession();
-			Tag tag = (Tag) session.get(Tag.class, TagId);
+			Tag tag = (Tag) session.get(Tag.class, tagId);
 			TagList taglist = tag.getTagList();
 			List<Tag> tags = taglist.getTagList();
 			tags.remove(tag);

@@ -31,11 +31,11 @@ public class VideoDaoImpl implements VideoDao{
 		}
 	}
 	
-	public void removeVideo(int VideoId) {
+	public void removeVideo(int videoId) {
 		Session session = null;
 		try {
 			session = sessionFactory.openSession();
-			Video video = (Video) session.get(Video.class, VideoId);
+			Video video = (Video) session.get(Video.class, videoId);
 			VideoList videolist = video.getVideoList();
 			List<Video> videos = videolist.getVideoList();
 			videos.remove(video);
