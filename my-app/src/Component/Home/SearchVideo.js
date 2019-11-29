@@ -38,14 +38,21 @@ class SearchVideo extends React.Component {
         )
     }
 }
+// mapStateToProps：将state映射到组件的props中
 const mapStateToProps=(state)=>{
     return{
         searchVideoList:state.searchVideoList
     }
 }
+// mapDispatchToProps：将dispatch映射到组件的props中
 function mapDispatchToProps(dispatch){
     return{
         getVideoList:(searchVideoList)=>dispatch(getVideoList(searchVideoList))
+        /*dispatch(setPageTitle(data)) 等价于：
+        dispatch((dispatch, getState) => {
+            dispatch({ type: 'SET_PAGE_TITLE', data: data })
+        )*/
         }
 }
+//connect绑定store从而监听
 export default  connect(mapStateToProps,mapDispatchToProps)(SearchVideo);
