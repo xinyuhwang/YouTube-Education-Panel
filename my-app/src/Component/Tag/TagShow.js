@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import "../../index.css"
 import TagEdit from './TagEdit';
-import {connect} from "react-redux"
 class TagShow extends Component {
     state={
             addTags:[],
@@ -22,6 +21,7 @@ class TagShow extends Component {
     setAddTags=(newAddTags)=>{
         //console.log("currentTags",this.state.currentTags.length)
         const newTagId=this.state.currentTags.length+1
+        //add user id, video id to request
         const newTag={tagId:newTagId,tagName:newAddTags}
         this.setState({
             addTags:[...this.state.addTags,newTag],
@@ -45,7 +45,7 @@ class TagShow extends Component {
         console.log("Send Post to update tags");
         console.log("this.state",this);
         const{addTags,removeTags} = this.state;
-        const data = { username: 'example' };
+        // const data = { username: 'example' };
 
         if(addTags.length>0){
             console.log("Send Post to Add tags");

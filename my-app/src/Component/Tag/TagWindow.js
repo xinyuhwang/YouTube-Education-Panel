@@ -11,7 +11,7 @@ class TagWindow extends Component {
     }
 
     updatUserTags=(newUserTags)=>{
-            console.log(newUserTags)
+            // console.log(newUserTags)
             let userTags=newUserTags
             this.setState({
                 userTags:userTags,
@@ -30,8 +30,8 @@ class TagWindow extends Component {
         this.setState({display:false})
     }
     render() {
-        console.log("tagWindow show this.props.userTags",this.props.userTags)
-        console.log("tagWindow show this.state.userTags",this.state.userTags)
+        // console.log("tagWindow show this.props.userTags",this.props.userTags)
+        // console.log("tagWindow show this.state.userTags",this.state.userTags)
         return (
             <div className="tag">
                 <button onClick={this.openWindow}>{this.props.name}</button>
