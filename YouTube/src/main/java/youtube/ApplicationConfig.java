@@ -4,6 +4,7 @@ import java.util.Properties;
 import javax.sql.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.web.multipart.MultipartResolver;
@@ -22,11 +23,12 @@ public class ApplicationConfig {
 		sessionFactory.setHibernateProperties(hibernateProperties());
 		return sessionFactory;
 	}
+	
 	@Bean(name = "dataSource")
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/youtube?serverTimezone=UTC");
+		dataSource.setUrl("jdbc:mysql://localhost:3306/youtube?serverTimezone=UTC&useSSL=false");
 		dataSource.setUsername("root");
 		dataSource.setPassword("root");
 

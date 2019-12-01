@@ -1,19 +1,23 @@
 package youtube.model;
 
+import java.util.*;
 import java.io.Serializable;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import youtube.model.NotePad;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name="video")
@@ -21,29 +25,34 @@ public class Video implements Serializable {
 
 	private static final long serialVersionUID = 6245772803345049074L;
 	
-	//@JsonProperty("Video ID")
 	@Id
+	//@GeneratedValue(strategy = GenerationType.AUTO)
 	private String id;
 	
 	private String url;
 	
+	@Column(name = "title")
 	private String title;
 	
 	private String thumbnail;
 	
-	// the owning side; owns foreign key to he videolist
-	@ManyToOne
-	@JoinColumn(name="videolistId")
-	private VideoList videoList;
+	//@ManyToMany(mappedBy="videoList")
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonIgnore
+	private List<User> userList;
 	
-	@OneToOne
-	@JoinColumn(name="notepadId")
-	private NotePad notePad;
+	//@OneToOne(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+	//@JoinColumn(name = "taglistId")
+	//private TagList tagList;
 	
-	@OneToOne(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
-	@JoinColumn(name = "taglistId")
-	private TagList tagList;
-	
+	public List<User> getUserList() {
+		return this.userList;
+	}
+
+	public void setUserList(List<User> userList) {
+		this.userList = userList;
+	}
+
 	public String getId() {
 		return id;
 	}
@@ -68,14 +77,6 @@ public class Video implements Serializable {
 		this.title = title;
 	}
 
-	public VideoList getVideoList() {
-		return videoList;
-	}
-
-	public void setVideoList(VideoList videoList) {
-		this.videoList = videoList;
-	}
-
 	public String getThumbnail() {
 		return thumbnail;
 	}
@@ -83,4 +84,5 @@ public class Video implements Serializable {
 	public void setThumbnail(String thumbnail) {
 		this.thumbnail = thumbnail;
 	}
+	
 }

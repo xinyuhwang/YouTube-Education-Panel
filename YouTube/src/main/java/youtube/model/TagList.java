@@ -26,8 +26,8 @@ public class TagList implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
-	@OneToOne(mappedBy = "tagList")
-	private Video video;
+//	@OneToOne(mappedBy = "tagList")
+//	private Video video;
 
 
 	@OneToMany(mappedBy = "tagList", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
@@ -45,11 +45,11 @@ public class TagList implements Serializable{
 		return tagList;
 	}
 	
-	public Video getVideo() {
-		return video;
-	}
-
-	public void setVideo(Video video) {
-		this.video = video;
-	}
+//	public Video getVideo() {
+//		return video;
+//	}
+//
+//	public void setVideo(Video video) {
+//		this.video = video;
+//	}
 }

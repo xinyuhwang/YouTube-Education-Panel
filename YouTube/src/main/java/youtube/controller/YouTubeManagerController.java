@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import youtube.external.YouTubeClient;
+import youtube.model.User;
 import youtube.model.Video;
+import youtube.service.TagService;
+import youtube.service.UserService;
 import youtube.service.VideoService;
 
 @Controller
@@ -21,11 +24,12 @@ public class YouTubeManagerController {
 	
 	@Autowired
 	private VideoService videoService;
+	
+	@Autowired
+	private UserService userService;
+	
 	@ResponseBody
 	@RequestMapping(value = "/search/{query}", method = RequestMethod.GET)   
-	// path variable with {username} in the url @PathVariable("username") String name
-	// @PathVariabl Map<String, String> pathVars key- "username" value - input in url
-	
 	public ArrayList<Video> getVideoList(@PathVariable("query") String term) {
 
 		ArrayList<Video> videoList = YouTubeClient.getVideoList(term);
@@ -34,11 +38,19 @@ public class YouTubeManagerController {
 		
 	}
 	
+
 	@ResponseBody
-	@RequestMapping(value = "/favorite", method = RequestMethod.POST)
-	public ResponseEntity<Boolean> favorite(@RequestParam("video") Video video) {
-		// add video to db
+	@RequestMapping(value = "/favorite", method = RequestMethod.GET)
+	public ResponseEntity<Boolean> favorite(@RequestParam("name") String name, Video video) {
+		User user = userService.getUser(name);
+		user.getVideoList().add(video);
+		
+		video.setUserList(new ArrayList<User>());
+		video.getUserList().add(user);
+		
 		videoService.addVideo(video);
+		userService.addUser(user);
 		return new ResponseEntity<Boolean>(true, HttpStatus.OK); 
 	}
+	
 }

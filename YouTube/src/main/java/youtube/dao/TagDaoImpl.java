@@ -7,7 +7,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import youtube.model.*;
+import youtube.model.Tag;
+import youtube.model.TagList;
 
 @Repository
 public class TagDaoImpl implements TagDao{
@@ -31,11 +32,11 @@ public class TagDaoImpl implements TagDao{
 		}
 	}
 	
-	public void removeTag(int tagId) {
+	public void removeTag(int TagId) {
 		Session session = null;
 		try {
 			session = sessionFactory.openSession();
-			Tag tag = (Tag) session.get(Tag.class, tagId);
+			Tag tag = (Tag) session.get(Tag.class, TagId);
 			TagList taglist = tag.getTagList();
 			List<Tag> tags = taglist.getTagList();
 			tags.remove(tag);
@@ -50,5 +51,11 @@ public class TagDaoImpl implements TagDao{
 				session.close();
 			}
 		}
+	}
+
+	@Override
+	public void removeTag(String tagName) {
+		// TODO Auto-generated method stub
+		
 	}
 }
