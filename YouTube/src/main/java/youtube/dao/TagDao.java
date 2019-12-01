@@ -1,8 +1,8 @@
 package youtube.dao;
 
-import youtube.model.*;
+import youtube.model.Tag;
 
 public interface TagDao {
 	void addTag(Tag tag);
-	void removeTag(int tagId);
+	void removeTag(String tagName);
 }

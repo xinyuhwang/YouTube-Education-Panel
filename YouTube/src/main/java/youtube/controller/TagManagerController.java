@@ -19,17 +19,18 @@ import youtube.service.TagService;
 public class TagManagerController {
 	
 
-    @Autowired
-    private TagService tagService;
+    //@Autowired
+    //private TagService tagService;
 	
 	@ResponseBody
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public ResponseEntity<Boolean> addTag(@RequestParam("tagName") String tagName) {
 		System.out.print(tagName + "add successfully");
 		// add video to db
-		Tag tag = new Tag();
-	   	tag.setName(tagName);
-	   	tagService.addTag(tag);
+//		Tag tag = new Tag();
+//	   	tag.setName(tagName);
+//	   	tag.setId(1);
+//	   	tagService.addTag(tag);	
 		return new ResponseEntity<Boolean>(true, HttpStatus.OK); 
 	}
 	

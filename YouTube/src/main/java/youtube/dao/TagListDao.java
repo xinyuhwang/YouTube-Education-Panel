@@ -1,7 +1,8 @@
 package youtube.dao;
 
+import java.io.IOException;
 import youtube.model.*;
 
 public interface TagListDao {
-	TagList getTagListById(int tagListId);
+	TagList getTagListById(int TagListId);
 }
