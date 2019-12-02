@@ -9,6 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -26,30 +28,41 @@ public class TagList implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
-//	@OneToOne(mappedBy = "tagList")
-//	private Video video;
+	@ManyToOne(cascade = CascadeType.MERGE)
+	@JoinColumn(name = "uid")
+	private User user;
 
 
-	@OneToMany(mappedBy = "tagList", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
-	private List<Tag> tagList;
+	@ManyToOne(cascade = CascadeType.MERGE)
+	@JoinColumn(name = "vid")
+	private Video video;
 	
-	public int getId() {
-		return id;
+	@ManyToOne(cascade = CascadeType.MERGE)
+	@JoinColumn(name = "tid")
+	private Tag tag;
+	
+	
+	public User getUser() {
+		return user;
 	}
-	
-	public void setTagList(List<Tag> tagList) {
-		this.tagList = tagList;
+
+	public void setUser(User user) {
+		this.user = user;
 	}
-	
-	public List<Tag> getTagList() {
-		return tagList;
+
+	public Video getVideo() {
+		return video;
 	}
-	
-//	public Video getVideo() {
-//		return video;
-//	}
-//
-//	public void setVideo(Video video) {
-//		this.video = video;
-//	}
+
+	public void setVideo(Video video) {
+		this.video = video;
+	}
+
+	public Tag getTag() {
+		return tag;
+	}
+
+	public void setTag(Tag tag) {
+		this.tag = tag;
+	}
 }

@@ -1,14 +1,14 @@
 package youtube.model;
 
+import java.util.*;
 import java.io.Serializable;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import youtube.model.TagList;
 
@@ -19,37 +19,26 @@ public class Tag implements Serializable {
 	private static final long serialVersionUID = 7423588675991231809L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
-	
 	private String name;
 	
-	@ManyToOne
-	@JoinColumn(name="taglistId")
-	private TagList tagList;
-
-	
-	public int getId() {
-		return id;
-	}
+	@OneToMany(mappedBy = "tag", cascade = CascadeType.ALL)
+	@JsonIgnore
+	private Set<TagList> tagLists;
 	
 	public String getName() {
 		return name;
 	}
-	
-	public void setId(int id) {
-		this.id = id;
-	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	public TagList getTagList() {
-		return tagList;
+
+	public Set<TagList> getTagLists() {
+		return tagLists;
 	}
 
-	public void setTagList(TagList tagList) {
-		this.tagList = tagList;
+	public void setTagLists(Set<TagList> tagLists) {
+		this.tagLists = tagLists;
 	}
+
 }

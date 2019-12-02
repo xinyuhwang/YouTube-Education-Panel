@@ -7,9 +7,6 @@ import youtube.model.Tag;
  */
 public interface TagService {
     void addTag(Tag tag);
-
-    void removeTag(String tagName);
-
     //void removeAllTags(Tag tag);
 }
 
