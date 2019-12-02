@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -35,6 +36,12 @@ public class Video implements Serializable {
 	private String title;
 	
 	private String thumbnail;
+	
+	
+	@OneToMany(mappedBy = "video", cascade = CascadeType.ALL)
+	@JsonIgnore
+	private Set<TagList> tagLists;
+	
 	
 	//@ManyToMany(mappedBy="videoList")
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -83,6 +90,14 @@ public class Video implements Serializable {
 
 	public void setThumbnail(String thumbnail) {
 		this.thumbnail = thumbnail;
+	}
+	
+	public Set<TagList> getTagLists() {
+		return tagLists;
+	}
+
+	public void setTagLists(Set<TagList> tagLists) {
+		this.tagLists = tagLists;
 	}
 	
 }

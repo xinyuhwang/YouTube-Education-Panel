@@ -16,11 +16,6 @@ public class TagServiceImpl implements TagService {
    	 tagDao.addTag(tag);
 
     }
-
-    public void removeTag(String tagName) {
-   	 tagDao.removeTag(tagName);
-    }
-
     //public void removeAllTags(Tag tag) {
    	 //tagDao.removeAllTags(tag);
     //}

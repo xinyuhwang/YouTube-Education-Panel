@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -23,10 +24,13 @@ public class User implements Serializable {
 	@Column(name = "name")
 	private String name;
 	
-	@Column(name ="pwd")
+	@Column(name = "pwd")
 	private String pwd;
 	
-	//@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@JsonIgnore
+	private Set<TagList> tagLists;
+	
 	@ManyToMany(mappedBy="userList", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonIgnore
 	private List<Video> videoList;
@@ -46,6 +50,15 @@ public class User implements Serializable {
 	public void setPassword(String pwd) {
 		this.pwd = pwd;
 	}
+	
+	public Set<TagList> getTagLists() {
+		return tagLists;
+	}
+
+	public void setTagLists(Set<TagList> tagLists) {
+		this.tagLists = tagLists;
+	}
+
 
 	public void setVideoList(List<Video> videoList) {
 		this.videoList = videoList;
