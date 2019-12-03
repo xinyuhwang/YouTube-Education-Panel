@@ -44,7 +44,7 @@ public class Video implements Serializable {
 	
 	
 	//@ManyToMany(mappedBy="videoList")
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(mappedBy="videoList", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonIgnore
 	private List<User> userList;
 	
@@ -52,6 +52,18 @@ public class Video implements Serializable {
 	//@JoinColumn(name = "taglistId")
 	//private TagList tagList;
 	
+	@OneToMany(mappedBy="video", cascade = CascadeType.ALL)
+	@JsonIgnore
+	private Set<NotePad> notePadList;
+	
+	public Set<NotePad> getNotePadList() {
+		return notePadList;
+	}
+
+	public void setNotePadList(Set<NotePad> notePadList) {
+		this.notePadList = notePadList;
+	}
+
 	public List<User> getUserList() {
 		return this.userList;
 	}

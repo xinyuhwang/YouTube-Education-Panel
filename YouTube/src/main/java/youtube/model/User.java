@@ -12,6 +12,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -27,13 +30,26 @@ public class User implements Serializable {
 	@Column(name = "pwd")
 	private String pwd;
 	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="user", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Set<TagList> tagLists;
 	
-	@ManyToMany(mappedBy="userList", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonIgnore
 	private List<Video> videoList;
+	
+	public Set<NotePad> getNotePadList() {
+		return notePadList;
+	}
+
+	public void setNotePadList(Set<NotePad> notePadList) {
+		this.notePadList = notePadList;
+	}
+
+	@OneToMany(mappedBy="user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	// (FetchMode.SELECT)
+	@JsonIgnore
+	private Set<NotePad> notePadList;
 	
 	public String getName() {
 		return this.name;
