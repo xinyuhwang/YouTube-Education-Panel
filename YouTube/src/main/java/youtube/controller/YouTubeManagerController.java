@@ -7,14 +7,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import youtube.external.YouTubeClient;
+import youtube.model.NotePad;
 import youtube.model.User;
 import youtube.model.Video;
+import youtube.service.NotePadService;
 import youtube.service.TagService;
 import youtube.service.UserService;
 import youtube.service.VideoService;
@@ -27,6 +30,9 @@ public class YouTubeManagerController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private NotePadService notePadService;
 	
 	@ResponseBody
 	@RequestMapping(value = "/search/{query}", method = RequestMethod.GET)   
@@ -48,9 +54,39 @@ public class YouTubeManagerController {
 		video.setUserList(new ArrayList<User>());
 		video.getUserList().add(user);
 		
+		for (User u : video.getUserList()) {
+			System.out.println(u.getName());
+		}
+		
+		NotePad notePad = new NotePad();
+		notePad.setText("");
+		notePad.setUser(user);
+		notePad.setVideo(video);
+		
+		video.setNotePadList(new HashSet<NotePad>());	
+		video.getNotePadList().add(notePad);
+		notePadService.addNotePad(notePad);
+		
 		videoService.addVideo(video);
 		userService.addUser(user);
 		return new ResponseEntity<Boolean>(true, HttpStatus.OK); 
 	}
+		
+		
+//		Video newVideo = new Video();
+//		newVideo.setId(video.getId());
+//		newVideo.setThumbnail(video.getThumbnail());
+//		newVideo.setTitle(video.getTitle());
+//		newVideo.setUrl(video.getUrl());
+//		
+//		newVideo.setUserList(new ArrayList<User>());
+//		newVideo.setNotePadList(new ArrayList<NotePad>());
+//		
+//		User user = userService.getUser(name);
+//		user.getVideoList().add(newVideo);
+//		
+//		newVideo.getUserList().add(user);
+//		videoService.addVideo(newVideo);
+//		return new ResponseEntity<Boolean>(true, HttpStatus.OK); 
 	
 }

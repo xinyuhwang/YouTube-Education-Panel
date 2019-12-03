@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import youtube.model.User;
-import youtube.model.Video;
 
 @Repository
 public class UserDaoImpl implements UserDao{

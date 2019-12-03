@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import youtube.model.NotePad;
 import youtube.model.User;
 import youtube.model.Video;
 import youtube.service.UserService;
@@ -30,6 +31,7 @@ public class HomePageController {
 		user.setName(name);
 		user.setPassword(pwd);
 		user.setVideoList(new ArrayList<Video>());
+		user.setNotePadList(new HashSet<NotePad>());
 		userService.addUser(user);
 		return new ResponseEntity<Boolean>(true, HttpStatus.OK); 
 	}
