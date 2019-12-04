@@ -57,7 +57,7 @@ public class VideoManagerController {
 	@RequestMapping(value = "/delete", method = RequestMethod.DELETE)   
 	public ResponseEntity<Boolean> deleteVideo(@RequestParam("id") String id) {
 		// delete video from database 
-		
+		videoService.removeVideo(id);
 		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 		
 	}

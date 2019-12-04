@@ -15,5 +15,8 @@ public class TagListServiceImpl implements TagListService{
 	public void addTagList(TagList tagList) {
 		tagListDao.addTagList(tagList);
 	}
+	public void removeTagList(String tid, String uid, String vid) {
+		tagListDao.removeTagList(tid, uid, vid);
+	}
 	
 }
