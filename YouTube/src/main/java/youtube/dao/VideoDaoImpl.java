@@ -5,6 +5,7 @@ import java.util.*;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -98,25 +99,24 @@ public class VideoDaoImpl implements VideoDao{
 		return videoList;
 	}
 	
-//	public void removeVideo(int VideoId) {
-//		Session session = null;
-//		try {
-//			session = sessionFactory.openSession();
-//			Video video = (Video) session.get(Video.class, VideoId);
-//			VideoList videolist = video.getVideoList();
-//			List<Video> videos = videolist.getVideoList();
-//			videos.remove(video);
-//			session.beginTransaction();
-//			session.delete(video);
-//			session.getTransaction().commit();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			session.getTransaction().rollback();
-//		} finally {
-//			if (session != null) {
-//				session.close();
-//			}
-//		}
-//	}
+	public void removeVideo(String id) {
+		Session session = null;
+		try {
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+			String hql = "DELETE FROM Video WHERE id = :id";
+			Query qry = session.createQuery(hql)
+											.setParameter("id", id);
+			int res = qry.executeUpdate();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+	}
 
 }

@@ -72,10 +72,10 @@ public class TagManagerController {
 
 	@ResponseBody
 	@RequestMapping(value = "/delete", method = RequestMethod.DELETE)
-	public ResponseEntity<Boolean> deleteTag(@PathVariable("name") String tagName) {
+	public ResponseEntity<Boolean> deleteTag(@RequestParam("tid") String tid, @RequestParam("uid") String uid, @RequestParam("vid") String vid) {
 
 		// delete tag from database
-
+        tagListService.removeTagList(tid, uid, vid);
 		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 	}
 

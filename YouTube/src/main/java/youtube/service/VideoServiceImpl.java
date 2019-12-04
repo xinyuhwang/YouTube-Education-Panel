@@ -31,4 +31,8 @@ public class VideoServiceImpl implements VideoService {
 
 		return videoDao.getVideoAll(user);
 	}
+	
+	public void removeVideo(String id) {
+		videoDao.removeVideo(id);
+	}
 }

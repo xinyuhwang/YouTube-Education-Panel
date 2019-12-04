@@ -13,5 +13,5 @@ public interface VideoDao {
 	
 	List<Video> getVideoAll(User user);
 	
-	//void removeVideo(int VideoId);
+	void removeVideo(String id);
 }
