@@ -44,7 +44,6 @@ public class YouTubeManagerController {
 		
 	}
 	
-
 	@ResponseBody
 	@RequestMapping(value = "/favorite", method = RequestMethod.GET)
 	public ResponseEntity<Boolean> favorite(@RequestParam("name") String name, Video video) {
@@ -59,7 +58,7 @@ public class YouTubeManagerController {
 		}
 		
 		NotePad notePad = new NotePad();
-		notePad.setText("");
+		notePad.setText("Write notes here");
 		notePad.setUser(user);
 		notePad.setVideo(video);
 		
@@ -71,22 +70,5 @@ public class YouTubeManagerController {
 		userService.addUser(user);
 		return new ResponseEntity<Boolean>(true, HttpStatus.OK); 
 	}
-		
-		
-//		Video newVideo = new Video();
-//		newVideo.setId(video.getId());
-//		newVideo.setThumbnail(video.getThumbnail());
-//		newVideo.setTitle(video.getTitle());
-//		newVideo.setUrl(video.getUrl());
-//		
-//		newVideo.setUserList(new ArrayList<User>());
-//		newVideo.setNotePadList(new ArrayList<NotePad>());
-//		
-//		User user = userService.getUser(name);
-//		user.getVideoList().add(newVideo);
-//		
-//		newVideo.getUserList().add(user);
-//		videoService.addVideo(newVideo);
-//		return new ResponseEntity<Boolean>(true, HttpStatus.OK); 
 	
 }

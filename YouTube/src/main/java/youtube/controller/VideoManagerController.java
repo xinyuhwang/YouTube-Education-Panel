@@ -48,7 +48,6 @@ public class VideoManagerController {
 	@RequestMapping(value = "/searchTitle", method = RequestMethod.GET)
 	public List<Video> getVedioByTitle(@RequestParam("name") String name, @RequestParam("title") String title) {
 		// search video in the db
-		User user = userService.getUser(name);
 		return videoService.getVideoByTitle(title, name);
 	}
 	

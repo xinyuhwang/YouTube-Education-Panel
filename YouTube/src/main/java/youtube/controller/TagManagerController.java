@@ -37,6 +37,17 @@ public class TagManagerController {
 	
 	@Autowired
 	private TagListService tagListService;
+	
+	@ResponseBody
+	@RequestMapping(value = "/getTags", method = RequestMethod.GET)
+	public List<String> getTags(@RequestParam("uid") String uid, @RequestParam("vid") String vid) {
+		List<String> tagNames = new ArrayList<>();
+		for (Tag tag : tagListService.getTags(uid, vid)) {
+			tagNames.add(tag.getName());
+		}
+		return tagNames;
+	}
+	
 
 	@ResponseBody
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
@@ -44,16 +55,6 @@ public class TagManagerController {
 		// save or update tag one by one
 		User user = userService.getUser(uid);
 		Video video = videoService.getVideoById(vid, uid);
-//		for (Tag tag : tags) {
-//			tagService.addTag(tag);
-//			TagList tagList = new TagList();
-//			tagList.setUser(user);
-//			tagList.setVideo(video);
-//			tagList.setTag(tag);
-//			tagListService.addTagList(tagList);
-//		}
-		
-		
 		tagService.addTag(tag);
 		TagList tagList = new TagList();
 		tagList.setUser(user);
@@ -69,7 +70,7 @@ public class TagManagerController {
 		
 		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 	}
-
+	
 	@ResponseBody
 	@RequestMapping(value = "/delete", method = RequestMethod.DELETE)
 	public ResponseEntity<Boolean> deleteTag(@PathVariable("name") String tagName) {
