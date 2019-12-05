@@ -37,4 +37,13 @@ public class NotePadManager {
 		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/getContent", method = RequestMethod.GET)
+	public String getContent(@RequestParam("uid") String uid, @RequestParam("vid") String vid) {
+		NotePad notePad = notePadService.getNotePad(uid, vid);
+		
+		return notePad.getText();
+	}
+	
+	
 }
