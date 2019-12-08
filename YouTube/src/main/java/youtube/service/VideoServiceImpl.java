@@ -18,17 +18,19 @@ public class VideoServiceImpl implements VideoService {
 	}
 
 	public Video getVideoById(String id, String name) {
-
 		return videoDao.getVideoById(id, name);
 	}
 
 	public List<Video> getVideoByTitle(String title, String name) {
-
 		return videoDao.getVideoByTitle(title, name);
 	}
 
 	public List<Video> getVideoAll(User user) {
-
 		return videoDao.getVideoAll(user);
+	}
+
+	public void removeVideo(String VideoId) {
+
+		videoDao.removeVideo(VideoId);
 	}
 }

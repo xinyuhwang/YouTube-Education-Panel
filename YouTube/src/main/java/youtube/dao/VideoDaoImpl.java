@@ -5,24 +5,25 @@ import java.util.*;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import youtube.model.TagList;
 import youtube.model.User;
 import youtube.model.Video;
 
 @Repository
 public class VideoDaoImpl implements VideoDao{
-	
+
 	@Autowired
 	private SessionFactory sessionFactory;
-	
+
 	public void addVideo(Video video) {
 		Session session = null;
 		try {
 			session = sessionFactory.openSession();
 			session.beginTransaction();
+			// session.merge(video);
 			session.saveOrUpdate(video);
 			session.getTransaction().commit();
 		} catch (Exception e) {
@@ -34,25 +35,30 @@ public class VideoDaoImpl implements VideoDao{
 			}
 		}
 	}
-	
+
+	@SuppressWarnings("unchecked")
 	public Video getVideoById(String id, String name) {
+		List<Video> videos = null;
 		Video video = null;
 		try (Session session = sessionFactory.openSession()) {
 			session.beginTransaction();
 			// use hql to query many to many assoication
 			String hql = "SELECT v FROM User u JOIN u.videoList v WHERE u.name = :name and v.id = :id";
-			video = (Video)session.createQuery(hql)
-								  .setParameter("name", name)
-								  .setParameter("id", id)
-								  .getSingleResult();	
+			videos = (List<Video>)session.createQuery(hql)
+					.setParameter("name", name)
+					.setParameter("id", id)
+					.list();
+			if (videos.size() != 0) {
+				video = videos.get(0);
+			}
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return video;
 	}
-	
-	
+
+
 	/*
 	 * Option 1: Use criteria object but cannot solve many to many association 
 	 * // Create CriteriaBuilder CriteriaBuilder builder =
@@ -72,16 +78,16 @@ public class VideoDaoImpl implements VideoDao{
 			// table name is the type of variable not the name of table
 			String hql = "SELECT v FROM User u JOIN u.videoList v WHERE u.name = :name and v.title like :title";
 			videoList = (List<Video>)session.createQuery(hql)
-											.setParameter("name", name) // set parameter for query   
-											.setParameter("title", "%" + title + "%")
-											.getResultList();
+					.setParameter("name", name) // set parameter for query   
+					.setParameter("title", "%" + title + "%")
+					.getResultList();
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return videoList;
 	}
-	
+
 	public List<Video> getVideoAll (User user) {
 		List<Video> videoList = new ArrayList<>();
 		try (Session session = sessionFactory.openSession()) {
@@ -97,26 +103,26 @@ public class VideoDaoImpl implements VideoDao{
 		}
 		return videoList;
 	}
-	
-//	public void removeVideo(int VideoId) {
-//		Session session = null;
-//		try {
-//			session = sessionFactory.openSession();
-//			Video video = (Video) session.get(Video.class, VideoId);
-//			VideoList videolist = video.getVideoList();
-//			List<Video> videos = videolist.getVideoList();
-//			videos.remove(video);
-//			session.beginTransaction();
-//			session.delete(video);
-//			session.getTransaction().commit();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			session.getTransaction().rollback();
-//		} finally {
-//			if (session != null) {
-//				session.close();
-//			}
-//		}
-//	}
+
+
+	public void removeVideo(String id) {
+		Session session = null;
+		try {
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+			String hql = "DELETE FROM Video WHERE id = :id";
+			Query qry = session.createQuery(hql)
+					.setParameter("id", id);
+			qry.executeUpdate();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+	}
 
 }
