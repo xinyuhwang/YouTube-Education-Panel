@@ -8,11 +8,10 @@ import {Provider} from "react-redux";
 // import myRootReducer from './Component/Reducer/myRootReducer';
 import Main from './Component/MainPage/Main';
 import store from "./Component/Reducer/Store"
-import VideoList from './Component/VideoManager/VideoList';
 
 // const store = createStore(myRootReducer);
 store.subscribe(()=>{
-    console.log(store.getState());
+    console.log("get redux store data",store.getState());
 })
 {/* 将store作为prop传入，即可使应用中的所有组件使用store */}
 

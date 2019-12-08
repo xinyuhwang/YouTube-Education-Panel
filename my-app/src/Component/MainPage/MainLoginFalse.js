@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import MainSignin from './MainSignin';
-import {Route, Switch} from "react-router-dom"
+import {Route, Switch,Redirect} from "react-router-dom"
 import {userLogIn,userLogOut} from "../aAction/actionUserState"
 import "../../style/Main.css"
 import MainSignUp from './MainSignUp';
@@ -15,15 +15,30 @@ import MainSignUp from './MainSignUp';
 //         );
 //     }
 // }
+
 class MainLoginFalse extends Component {
+
     render() {
-        const SignIn = ()=><MainSignin userLogIn={this.props.userLogIn}/>
-        console.log(this.BrowserRouter)
+        const RouteFallback = (props) => {
+            // console.log('route fallback with location: ', props.location);
+            return <Redirect to={ {
+                pathname: '/',
+                from: props.location
+            }} />
+        }
+        const SignIn = (props)=>{
+            // console.log('route SignIn with location: ', props.location);
+            return <MainSignin userLogIn={this.props.userLogIn} userState={this.props.userState}/>
+        }
+        const SignUp =(props)=> {
+            // console.log('route SignUp with location: ', props.location);
+            return <MainSignUp userLogIn={this.props.userLogIn} userState={this.props.userState}/>}
         return (
                 <Switch>
                     <Route exact path="/" component = {SignIn}/>
                     <Route path="/SignIn" component = {SignIn}/>
-                    <Route path="/SignUp" component={MainSignUp}/>
+                    <Route path="/SignUp" component={SignUp}/>
+                    <Route component={RouteFallback}/> 
                 </Switch>
 
         );

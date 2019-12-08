@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
-import {Link, NavLink} from "react-router-dom"
+import {NavLink } from "react-router-dom"
 import "../../style/MainPage.css"
 
 class MainSignin extends Component {
@@ -8,28 +8,27 @@ class MainSignin extends Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
           if (!err) {
-            //get value:{username: "1111",password: "2222"r,emember: true}
             console.log('Received values of form: ', values);
             //example url:http://localhost:8080/YouTube/login?name=1111&pwd=2222
             //                                 /YouTube/login?name=1111&pwd=2222 
             const url="/YouTube/login?name="+values.username+"&pwd="+values.password
-            console.log("url",url)
             try {
                 fetch(url)
                 .then((response) => response.json())
                 .then(()=>{
                     //set global redux data of videolist
-                    console.log('Login success')
-                    console.log('history',this.props)
+                    // console.log('Login success')
                     //console.log("searchVideoList",this.state.searchVideoList)
-                    // this.props.history.push( '/')
+                    //this.props.history.push( '/')
                     //set user state
-                    const newUserstate={
+                    console.log("values.username,",values.username,)
+                    let newUserstate={
                         loginState: true,
                         username: values.username,
                     }
                     this.props.userLogIn(newUserstate)
-
+                    // const curURL = window.location.href
+                    // console.log("curURL",curURL)
                 })
             } catch (error) {
                 console.log("Login error")
@@ -38,10 +37,10 @@ class MainSignin extends Component {
           }
         });
       };
-      handleClickSignUp=()=>{
-          console.log("register")
-          console.log('history',this.props)
-      }
+
+    //   componentDidMount() {
+    //     console.log("Signin location",this.props.location);
+    //   }
     render() {
         const { getFieldDecorator } = this.props.form;
         return (

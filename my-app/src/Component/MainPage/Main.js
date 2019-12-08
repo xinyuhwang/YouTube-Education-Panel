@@ -1,29 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import "../../style/MainPage.css"
-import Navbar2 from '../PageDesign/Navbar2';
 import MainLoginFalse from './MainLoginFalse';
-import MainLoginTreu from './MainLoginTreu';
+import MainLoginTrue from './MainLoginTrue';
 // import {BrowserRouter, Route, Switch} from "react-router-dom"
 import {BrowserRouter} from "react-router-dom"
 import NavbarLogInFalse from './NavbarLogInFalse';
+import NavbarLogInTrue from './NavbarLogInTrue';
 
 class Main extends Component {
   
 
   render() {
-    console.log(this.props.userState.loginState)
+    // console.log(this.props.userState.loginState)
     let Navbar;
     let Body;
       if(this.props.userState.loginState===true){
-        console.log("inside")
-          Navbar = <Navbar2/>
-          Body = <MainLoginTreu/>
+          Navbar = <NavbarLogInTrue/>
+          Body = <MainLoginTrue/>
       }else{ 
-        console.log("inside")
-        Navbar = <NavbarLogInFalse/>
-        Body =<MainLoginFalse/>
-        console.log(Navbar)
+          Navbar = <NavbarLogInFalse/>
+          Body =<MainLoginFalse/>
       }
 
 

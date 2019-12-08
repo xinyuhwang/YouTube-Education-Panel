@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-
-
 import YouTube from '@u-wave/react-youtube';
 
 class VidoePalyer extends Component {

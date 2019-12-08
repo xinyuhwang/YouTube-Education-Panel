@@ -1,7 +1,10 @@
 import React from 'react';
-import SearchVideoList from './SearchVideoList';
 import {connect} from "react-redux"
 import {getVideoList} from "../aAction/actionGetVideoList"
+import { Button } from 'antd';
+import SearcheVideoDisplay from './SearcheVideoDisplay';
+//including searchbar and video show pannel
+
 
 class SearchVideo extends React.Component {
     state = {
@@ -17,23 +20,34 @@ class SearchVideo extends React.Component {
         //hold keywords in search text
         e.preventDefault();
         //set keywords also get data from backend
-        const keywords = this.state.keywords
-        fetch("/YouTube/search/"+keywords)
-        .then((response) => response.json())
-        .then(data=>{
-            //set global redux data of videolist
-            this.props.getVideoList(data)
-            console.log(data)
-        })
+        let url="/YouTube/search/"+this.state.keywords
+        console.log("search url",url)
+        try{
+            fetch(url)
+            .then((response) => response.json())
+            .then(data=>{
+                //set global redux data of videolist
+                this.props.getVideoList(data)
+                console.log(data)
+            })
+        }catch (error) {
+            console.log("search error")
+        }
     }
     render() {
         return (
-            <div>
-                <form onSubmit={this.handleSubmit}>
-                    <button>Search</button>
-                    <input type="text" placeholder="Input Keywords"onChange={this.handleChagne} value={this.state.keywords}/>                  
+            <div className="HomePageBody">
+                <form className="searchbar" onSubmit={this.handleSubmit}>
+                    <input  className="searchbarInput"
+                            type="text" placeholder="Input Keywords"
+                            onChange={this.handleChagne} 
+                            value={this.state.keywords}/>   
+                    <Button 
+                        className="searchbarButton"
+                        type="primary" icon="search" size="large" >Search</Button>               
                 </form>
-                <SearchVideoList searchVideoList={this.props.searchVideoList}/>
+                {/* <SearchVideoList searchVideoList={this.props.searchVideoList}/> */}
+                <SearcheVideoDisplay/>
             </div>
         )
     }
