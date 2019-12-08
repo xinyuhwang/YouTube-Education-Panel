@@ -24,4 +24,8 @@ public class TagListServiceImpl implements TagListService{
 		return tagListDao.getTags(uid, vid);
 	}
 	
+	public void removeTagList(String tid, String uid, String vid) {
+		tagListDao.removeTagList(tid, uid, vid);
+	}
+	
 }

@@ -34,10 +34,10 @@ public class TagManagerController {
 
 	@Autowired
 	private TagService tagService;
-	
+
 	@Autowired
 	private TagListService tagListService;
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/getTags", method = RequestMethod.GET)
 	public List<String> getTags(@RequestParam("uid") String uid, @RequestParam("vid") String vid) {
@@ -47,7 +47,7 @@ public class TagManagerController {
 		}
 		return tagNames;
 	}
-	
+
 
 	@ResponseBody
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
@@ -67,16 +67,15 @@ public class TagManagerController {
 		video.getTagLists().add(tagList);
 		tag.getTagLists().add(tagList);
 		tagListService.addTagList(tagList);
-		
+
 		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/delete", method = RequestMethod.DELETE)
-	public ResponseEntity<Boolean> deleteTag(@PathVariable("name") String tagName) {
-
+	public ResponseEntity<Boolean> deleteTag(@RequestParam("tid") String tid, @RequestParam("uid") String uid, @RequestParam("vid") String vid) {
 		// delete tag from database
-
+		tagListService.removeTagList(tid, uid, vid);
 		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 	}
 

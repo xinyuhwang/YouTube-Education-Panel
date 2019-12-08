@@ -14,6 +14,9 @@ public interface VideoService {
     List<Video> getVideoByTitle(String title, String name);
 
     List<Video> getVideoAll(User user);
+    
+    void removeVideo(String VideoId);
+    
     //void removeTag(String tagName);
 
     //void removeAllTags(Tag tag);

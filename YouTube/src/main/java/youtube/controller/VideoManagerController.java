@@ -19,13 +19,13 @@ import youtube.service.VideoService;
 @Controller
 @RequestMapping("/video")
 public class VideoManagerController {
-	
+
 	@Autowired
 	private VideoService videoService;
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public List<Video> getVedioAll(@RequestParam("name") String name) {
@@ -35,7 +35,7 @@ public class VideoManagerController {
 		videoList = videoService.getVideoAll(user);
 		return videoList;
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/searchId", method = RequestMethod.GET)
 	public Video getVedioById(@RequestParam("name") String name, @RequestParam("id") String id) {
@@ -43,21 +43,21 @@ public class VideoManagerController {
 		Video v = videoService.getVideoById(id, name);
 		return v;
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/searchTitle", method = RequestMethod.GET)
 	public List<Video> getVedioByTitle(@RequestParam("name") String name, @RequestParam("title") String title) {
 		// search video in the db
 		return videoService.getVideoByTitle(title, name);
 	}
-	
-	
+
+
 	@ResponseBody
 	@RequestMapping(value = "/delete", method = RequestMethod.DELETE)   
 	public ResponseEntity<Boolean> deleteVideo(@RequestParam("id") String id) {
 		// delete video from database 
-		
+		videoService.removeVideo(id);
 		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
-		
+
 	}
 }
