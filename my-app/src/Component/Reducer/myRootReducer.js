@@ -1,51 +1,10 @@
-
-// const totalState = {
-//     userId: null,
-//     Password: null,
-//     Email: null,
-//     LastName: null,
-//     FirstName: null,
-//     //list id is an array contain list of video
-//     ListID:[
-//         {
-//             videoID: null,
-//             URL: null,
-//             Tittle: null,
-//             NoteID: [
-//                 //each video contain a notbook
-//                 {NoteBookID: null, Text: null, TimeStamp: null}
-//             ],
-//             Tags:[
-//                 {TagID: null, TagName: null} 
-//             ]
-//         }
-//     ],
-//     TagList:[ 
-//         {TagID: null, TagName: null} 
-//     ]
-// }
-const initeUserTagsState =[
-    {tagId:"1",tagName:"tag1"},
-    {tagId:"2",tagName:"tag2"},
-    {tagId:"3",tagName:"getdata"},
-    {tagId:"4",tagName:"casssss"},
-//     {tagId:"5",tagName:"1234aa1718"},
-//     {tagId:"6",tagName:"01112131415161718"}
-]
-// const searchvideo={
-//     id: "hEsofW-h6zA",
-//     thumbnail: "https://i.ytimg.com/vi/hEsofW-h6zA/default.jpg",
-//     title: "BEST DANCES OF 2018",
-//     url: "https://www.youtube.com/embed/hEsofW-h6zA",
-//     videoList: null,
-// }
-const initUserState = {
-    userId: null,
-    password: null,
-    Email: null,
-    LastName: null,
-    FirstName: null,
-}
+// const initeUserTagsState =[
+//     {tagId:"1",tagName:"tag1"},
+//     {tagId:"2",tagName:"tag2"},
+//     {tagId:"3",tagName:"getdata"},
+//     {tagId:"4",tagName:"casssss"},
+// ]
+const initeUserTagsState=["tag1","tag2","tag3","tag4"]
 const initSearchVideoListState =[
 //     {
 //     videoID: null,
@@ -53,28 +12,68 @@ const initSearchVideoListState =[
 //     URL: null,
 // }
 ]
-const initUserVideoList=[
+const testtUserVideoList=[
     {
-    videoID: null,
-    Tittle: null,
-    URL: null,
-    videoTags:[
-        {tagId:"1",tagName:"tag1"},
-        {tagId:"2",tagName:"tag2"},
-    ]
- }
+    videoID: "hEsofW-h6zA",
+    title: "BEST DANCES OF 2018",
+    URL: "https://www.youtube.com/embed/hEsofW-h6zA",
+    thumbnail: "https://i.ytimg.com/vi/hEsofW-h6zA/default.jpg",
+    tagsId:"1",
+    videoTags:["tag1","tag2"]
+    },
+    {
+        videoID: "SrVV73gTBpk",
+        title: "TONES AND I - DANCE MONKEY / Lia Kim Choreography",
+        URL: "https://www.youtube.com/embed/SrVV73gTBpk",
+        thumbnail: "https://i.ytimg.com/vi/SrVV73gTBpk/default.jpg",
+        tagsId:"2",
+        videoTags:["tag1","tag2"]
+     },
+     {
+        videoID: "SrVV73gTBpk",
+        title: "TMovie test",
+        URL: "https://www.youtube.com/embed/SrVV73gTBpk",
+        thumbnail: "https://i.ytimg.com/vi/SrVV73gTBpk/default.jpg",
+        tagsId:"3",
+        videoTags:["tag1","tag2","getdata"]
+     },
+    {
+        videoID: "SrVV73gTBpk",
+        title: "Test Video dance",
+        URL: "https://www.youtube.com/embed/SrVV73gTBpk",
+        thumbnail: "https://i.ytimg.com/vi/SrVV73gTBpk/default.jpg",
+        videoTags:["getdata","casssss"]
+     },
 ]
+
+const testtUserVideoList2=[
+    {id: "v7", url: "https://www.youtube.com/embed/v467", title: "v4 6NEW7", thumbnail: "https://i.ytimg.com/vi/v7/default.jpg"},
+    {id: "v2", url: "https://www.youtube.com/embed/v2", title: "v2", thumbnail: "https://i.ytimg.com/vi/v2/default.jpg"},
+    {id: "v6", url: "https://www.youtube.com/embed/v46", title: "v6NEW B", thumbnail: "https://i.ytimg.com/vi/v6/default.jpg"},
+    {id: "v3", url: "https://www.youtube.com/embed/v3", title: "v3", thumbnail: "https://i.ytimg.com/vi/v3/default.jpg"}
+]
+
 const initUSerState=
    {    loginState: false,
         username: null
         // Password: null,
         // Email: null,
     }
+
+const initUserVideoTag=[
+    {id: "", url: "", title: "", thumbnail: "", tags:[]}
+]
+
 const initState = {
     userState:initUSerState,
     searchVideoList:initSearchVideoListState,
     userTags: initeUserTagsState,
-    userVideoList:initUserVideoList,
+    userVideoList:null,
+    //userVideoListTEST:testtUserVideoList2,
+    UserVideoTag:null,
+    displayVideo:{video:"",notes:""},
+    currentVideo:""
+
 }
 const myRootReducer = (state=initState,action) => {
     console.log("Current Action:",action);
@@ -89,6 +88,32 @@ const myRootReducer = (state=initState,action) => {
             //videoList:[...state.videoList,action.videoList]
         }
     }
+    if(action.type ==="GET_USERVIDEOLIST"){
+        return{
+            ...state,
+            userVideoList:action.userVideoList
+        }
+    }
+    if(action.type ==="GET_USERVIDEOAll"){
+        return{
+            ...state,
+            UserVideoTag:action.UserVideoTag
+        }
+    }
+    if(action.type ==="SET_DISPLAYVIDEO"){
+        return{
+            ...state,
+            displayVideo:action.displayVideo
+        }
+    }
+    if(action.type ==="SET_CURRENTVIDEO"){
+        return{
+            ...state,
+            setCurrentVideo:action.setCurrentVideo
+            //videoList: state.videoList.concat(action.videoList)
+            //videoList:[...state.videoList,action.videoList]
+        }
+    }
     if(action.type ==="EDIT_TAGS"){
         console.log("user tags list",state.userTags)
         return{
@@ -97,7 +122,7 @@ const myRootReducer = (state=initState,action) => {
         }
     }
     if(action.type ==="LOG_IN"){
-        console.log("User state",state.userState)
+        //console.log("User state",state.userState)
         return{
             ...state,
             userState:action.userState

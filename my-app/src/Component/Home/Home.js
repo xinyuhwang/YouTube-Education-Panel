@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import SearchVideo from './SearchVideo';
-// import TagWindow from '../Tag/TagWindow';
-// import TagShow from '../Tag/TagShow';
-// import TagEdit from '../Tag/TagEdit';
+import "../../style/SearchPage.css"
 
 class Home extends Component {
     render() {
 
         return (
-            <div className="container">
+            <div>
                 <SearchVideo/>
                 {/* <TagWindow/> */}
             </div>

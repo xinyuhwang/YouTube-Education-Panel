@@ -42,15 +42,3 @@ code {
   display: inline;
 }
 
-.popWindow{
-  position:fixed;
-  z-index:500;
-  background-color: rgb(151, 177, 194);
-  width:250px;
-  border:1px solid #ccc;
-  box-shadow:1px 1px 1px black;
-  padding:16px;
-  left:15%;
-  box-sizing: border-box;
-  transition:ease-in-out;
-}

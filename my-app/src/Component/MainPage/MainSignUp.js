@@ -2,8 +2,9 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import { Form,Icon,Input,Button,} from 'antd';
-import {Link, NavLink} from "react-router-dom"
+import { NavLink} from "react-router-dom"
 import "../../style/login.css"
+
 
 class MainSignUp extends React.Component {
   state = {
@@ -16,28 +17,42 @@ class MainSignUp extends React.Component {
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
-        const url="/YouTube/signup?name="+values.username+"&pwd="+values.password
+        let url="/YouTube/register?name="+values.username+"&pwd="+values.password
+        //const url="/YouTube/register"
+        let options = {
+          method: 'POST',//post请求
+          headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+          },
+          // body: JSON.stringify({//post请求参数
+          // name: values.username,
+          // pwd: values.password,
+          // })
+          }
         console.log("url",url)
-        // try {
-        //     fetch(url)
-        //     .then((response) => response.json())
-        //     .then(()=>{
-        //         //set global redux data of videolist
-        //         console.log('Login success')
-        //         console.log('history',this.props)
-        //         //console.log("searchVideoList",this.state.searchVideoList)
-        //         // this.props.history.push( '/')
-        //         //set user state
-        //         const newUserstate={
-        //             loginState: true,
-        //             username: values.username,
-        //         }
-        //         this.props.userLogIn(newUserstate)
+        try {
+            fetch(url,options)
+            .then((response) => response.json())
+            .then(()=>{
+                //set global redux data of videolist
+                // console.log('Sign up success')
+                // this.props.history.push( '/')
+                //this.props.location.pathname="/"
+                // let pathname="/"
+                // window.history.pushState({},null,pathname);
 
-        //     })
-        // } catch (error) {
-        //     console.log("Login error")
-        // }
+                //set user state
+                const newUserstate={
+                    loginState: true,
+                    username: values.username,
+                }
+                this.props.userLogIn(newUserstate)
+            
+            })
+        } catch (error) {
+            console.log("Login error")
+        }
       }
     });
   };
@@ -63,10 +78,11 @@ class MainSignUp extends React.Component {
     }
     callback();
   };
-
+  // componentDidMount() {
+  //   console.log("Signup location",this.props.location);
+  // }
   render() {
     const { getFieldDecorator } = this.props.form;
-
     return (
     <div className="login">
       <Form  className= "login-form" onSubmit={this.handleSubmit}>
